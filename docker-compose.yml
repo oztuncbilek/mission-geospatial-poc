@@ -1,0 +1,22 @@
+services:
+  postgis:
+    image: postgis/postgis:16-3.4
+    container_name: mission-postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: mission_geo
+      POSTGRES_USER: mission_user
+      POSTGRES_PASSWORD: mission_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgis_data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mission_user -d mission_geo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgis_data:
