@@ -1,4 +1,4 @@
-# Mission Geospatial PoC (HAT.tec Concept)
+# Mission Geospatial PoC 
 
 A lightweight, high-performance proof-of-concept for a geospatial backend inspired by real-world human-autonomy teaming (MUM-T) and mission support workflows. 
 
