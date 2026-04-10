@@ -1,15 +1,24 @@
-# Ignore spatial data files
+# Python Environment & Cache
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+
+# C++ Build & CMake
+cpp/build/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Spatial Data 
 data/*.gpkg
 data/*.shp
 data/*.shx
 data/*.dbf
 data/*.prj
 data/*.geojson
+
+# OS Files
 .DS_Store
-.venv/
-__pycache__/
-# Python Virtual Environment
-.venv/
-venv/
-env/
-__pycache__/

@@ -4,4 +4,3 @@ SQLAlchemy>=2.0
 geoalchemy2>=0.14
 requests>=2.31
 
-#pip install -r requirements.txt

@@ -23,7 +23,7 @@ void summary(pqxx::work& txn) {
         {"mission.targets",       "Targets"},
     };
     for (const auto& [tbl, label] : tables) {
-        auto row = txn.exec1("SELECT COUNT(*) FROM " + tbl);
+        auto row = txn.exec("SELECT COUNT(*) FROM " + tbl).one_row();
         std::cout << "  " << std::left << std::setw(22) << label
                   << ": " << row[0].as<int>() << " features\n";
     }

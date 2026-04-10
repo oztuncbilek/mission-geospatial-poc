@@ -1,93 +1,60 @@
-# mission-geospatial-poc
+# Mission Geospatial PoC (HAT.tec Concept)
 
-A small private proof-of-concept for a geospatial backend inspired by real-world mission support workflows.
+A lightweight, high-performance proof-of-concept for a geospatial backend inspired by real-world human-autonomy teaming (MUM-T) and mission support workflows. 
 
-The project demonstrates how to build a lightweight spatial data backend using Docker, PostgreSQL/PostGIS, Python-based ingestion scripts and a small C++ integration layer. The focus is on geodata ingestion, coordinate consistency, validation, indexing and application-oriented spatial queries.
+The project demonstrates how to build a robust spatial data architecture using Docker, PostgreSQL/PostGIS, Python-based ingestion pipelines, and a highly optimized C++ integration layer for real-time spatial queries.
 
-## Goals
+![QGIS Map View](data/readme_qgis.png)
 
-- Set up a reproducible local geospatial stack with Docker.
-- Store mission-style geospatial entities in PostGIS.
-- Import and validate external geodata formats such as GeoPackage, Shapefile or GeoJSON.
-- Normalize coordinate reference systems and ensure geometry validity.
-- Run practical spatial queries for mission support scenarios.
-- Integrate a small C++ component that reads from the spatial database.
+## Core Features Delivered
 
-## Tech stack
+- **Containerized Database:** Reproducible local geospatial stack with Docker (PostgreSQL 16 + PostGIS).
+- **Data Ingestion Pipeline:** Python (GeoPandas) scripts to generate dummy drone flights and import external geodata into the database.
+- **Coordinate Consistency:** Automated SRID normalization (EPSG:4326) and geometry validation.
+- **C++ Autonomous Brain:** A modern C++17 client using `libpqxx` to execute millisecond-level spatial analyses:
+  - `ST_Intersects`: Real-time collision checks against No-Fly Zones.
+  - `<->` (KNN Indexing): Finding the nearest targets to drone observations.
+  - `ST_Contains` & `&&` (BBox): Filtering operational objects within mission areas.
 
-- Docker Compose
-- PostgreSQL 16 + PostGIS
-- SQL
-- Python
-- GeoPandas / Shapely / GDAL
-- C++17
-- libpqxx
-- CMake
+## Tech Stack
 
-## Project structure
+- **Infrastructure:** Docker Compose, PostgreSQL 16 + PostGIS
+- **Data Pipeline:** Python 3, GeoPandas, Shapely
+- **Query Engine:** C++17, libpqxx, CMake
+- **Visualization:** QGIS / DBeaver
 
-```text
-mission-geospatial-poc/
-├── cpp/
-├── data/
-├── docs/
-├── scripts/
-├── sql/
-├── docker-compose.yml
-└── README.md
-```
+---
 
-## Initial data model
+## Quick Start Guide
 
-The first version of the schema includes:
-
-- `mission_areas`: operational polygon boundaries
-- `flight_paths`: captured drone or platform routes
-- `observations`: detected objects or events
-- `no_fly_zones`: restricted polygons
-- `targets`: mission-relevant points of interest
-
-## Quick start
-
-### 1. Start the database
+### 1. Start the Spatial Database
+Run the PostgreSQL/PostGIS container in the background:
 
 ```bash
 docker compose up -d
 ```
-
-### 2. Check if the container is running
-
+### 2. Generate and Import Mission Data
+Activate your virtual environment and run the python pipelines to populate the database:
 ```bash
-docker ps
+python scripts/generate_dummy_data.py
+python scripts/import_data.py
 ```
 
-### 3. Connect to PostgreSQL
-
+### 3. Build and Run the C++ Query Client (macOS / Apple Silicon)
+Navigate to the `cpp` directory, build the project using CMake, and run the client:
 ```bash
-docker exec -it mission-postgis psql -U mission_user -d mission_geo
+cd cpp
+mkdir build && cd build
+cmake ..
+make
+./mission_client
 ```
 
-### 4. Verify PostGIS
+### C++ Output Example
+Below is the output of the C++ client performing high-speed spatial queries:
 
-Inside `psql`:
-
-```sql
-SELECT PostGIS_Version();
-SELECT COUNT(*) FROM mission.mission_areas;
-```
-
-## Planned features
-
-- Import pipeline for GeoPackage / Shapefile / GeoJSON
-- Geometry validation and SRID normalization
-- Spatial indexing and query benchmarking
-- C++ query client using libpqxx
-- Example mission queries such as:
-  - objects inside a bounding box
-  - nearest target to an observation
-  - flight paths intersecting restricted areas
-  - observations within a mission area
+![C++ Terminal Output 1](data/readme_cli.png)
+![C++ Terminal Output 2](data/readme_cli2.png)
 
 ## Status
-
-In progress.
+**Completed / Ready for Review.**
