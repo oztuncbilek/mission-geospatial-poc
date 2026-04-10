@@ -5,3 +5,4 @@ data/*.shx
 data/*.dbf
 data/*.prj
 data/*.geojson
+.DS_Store
