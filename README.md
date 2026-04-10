@@ -33,11 +33,11 @@ Run the PostgreSQL/PostGIS container in the background:
 ```bash
 docker compose up -d
 ```
-### 2. Generate and Import Mission Data
-Activate your virtual environment and run the python pipelines to populate the database:
+### 2. Run the Automated Data Pipeline
+Execute the bash script to automatically set up the Python environment, generate dummy mission data, import it into PostGIS, and run spatial QA validations:
 ```bash
-python scripts/generate_dummy_data.py
-python scripts/import_data.py
+chmod +x run_pipeline.sh
+./run_pipeline.sh
 ```
 
 ### 3. Build and Run the C++ Query Client (macOS / Apple Silicon)
