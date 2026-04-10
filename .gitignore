@@ -6,3 +6,5 @@ data/*.dbf
 data/*.prj
 data/*.geojson
 .DS_Store
+.venv/
+__pycache__/
