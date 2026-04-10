@@ -1,1 +1,7 @@
-data/*
+# Ignore spatial data files
+data/*.gpkg
+data/*.shp
+data/*.shx
+data/*.dbf
+data/*.prj
+data/*.geojson
