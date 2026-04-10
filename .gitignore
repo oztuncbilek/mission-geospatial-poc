@@ -8,3 +8,8 @@ data/*.geojson
 .DS_Store
 .venv/
 __pycache__/
+# Python Virtual Environment
+.venv/
+venv/
+env/
+__pycache__/
