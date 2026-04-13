@@ -44,7 +44,8 @@ chmod +x run_pipeline.sh
 Navigate to the `cpp` directory, build the project using CMake, and run the client:
 ```bash
 cd cpp
-mkdir build && cd build
+# Create build directory if it doesn't exist, then enter and compile
+mkdir -p build && cd build
 cmake ..
 make
 ./mission_client
